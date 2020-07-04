@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>projetoFinal</groupId>
+    <artifactId>projetoFinal</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <junit.version>4.12</junit.version>
+        <cucumber.version>5.6.0</cucumber.version>
+        <selenium.version>3.141.59</selenium.version>
+        <!--<maven.surefire.version>2.22.0</maven.surefire.version>-->
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>5.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13-beta-1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>5.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--REPORT USING MONOCHROMATA-->
+        <!--It uses the cucumber-reporting.properties-->
+        <!--<dependency>-->
+        <!--<groupId>de.monochromata.cucumber</groupId>-->
+        <!--<artifactId>reporting-plugin</artifactId>-->
+        <!--<version>4.0.52</version>-->
+        <!--</dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--EXECUTE TESTS THROUGH COMMAND LINE-->
+            <!--<plugin>-->
+            <!--<artifactId>maven-surefire-plugin</artifactId>-->
+            <!--<version>2.22.0</version>-->
+            <!--<configuration>-->
+            <!--<excludes>-->
+            <!--<exclude></exclude>-->
+            <!--</excludes>-->
+            <!--<includes>-->
+            <!--<include>RunCucumber.java</include>-->
+            <!--</includes>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+
+            <!--REPORT USING CLUECUMBER-->
+            <!--It depends on the json report-->
+            <!--<plugin>-->
+            <!--<groupId>com.trivago.rta</groupId>-->
+            <!--<artifactId>cluecumber-report-plugin</artifactId>-->
+            <!--<version>2.5.0</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>report</id>-->
+            <!--<phase>post-integration-test</phase>-->
+            <!--<goals>-->
+            <!--<goal>reporting</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--<configuration>-->
+            <!--<sourceJsonReportDirectory>target/reports</sourceJsonReportDirectory>-->
+            <!--<generatedHtmlReportDirectory>target/reports/cluecumber-report</generatedHtmlReportDirectory>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+        </plugins>
+    </build>
+</project>
