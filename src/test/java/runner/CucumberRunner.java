@@ -39,7 +39,7 @@ public class CucumberRunner {
 
     @AfterClass
     public static void tearDownClass() {
-        DriverFactory.quitDriver();
+
     }
 }
 
