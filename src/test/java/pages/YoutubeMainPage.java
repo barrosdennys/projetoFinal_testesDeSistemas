@@ -9,7 +9,7 @@ import util.DriverFactory;
 public class YoutubeMainPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
-    
+
     public YoutubeMainPage(WebDriver driver) {
         this.driver = driver;
         wait = DriverFactory.getWait();
@@ -34,6 +34,25 @@ public class YoutubeMainPage {
         driver.findElement(searchInput).sendKeys(videoName);
 
         driver.findElement(searchBtn).click();
+    }
+
+    public void clickLateralMenu(String option) {
+        By menuOption = By.xpath("//div[@id='sections']//div[@id='items']//a[contains(@title,'" + option + "')]");
+        driver.findElement(menuOption).click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(avatarImg));
+    }
+
+    public void clickProfileMenu(String option) {
+        By menuOption = By.xpath("//iron-dropdown//paper-item//" +
+                "yt-formatted-string[@id='label'][contains(text(),'" + option + "')]");
+
+        driver.findElement(avatarImg).click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(menuOption));
+
+        driver.findElement(menuOption).click();
+
     }
 
 }

@@ -14,6 +14,7 @@ public class BasicInteractions {
     @Given("I open the youtube main page")
     public void openYoutubeMainPage() {
         driver.get(Constants.YOUTUBE_MAIN_URL);
+        driver.manage().window().maximize();
 
     }
 
@@ -26,6 +27,11 @@ public class BasicInteractions {
     @When("I search for a video called {string}")
     public void videoSearch(String videoName) {
         youtubeMainPage.searchVideo(videoName);
+    }
+
+    @When("I select the option {string} in the lateral menu")
+    public void selectOptionLateralMenu(String option) {
+        youtubeMainPage.clickLateralMenu(option);
     }
 
 }
