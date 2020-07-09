@@ -3,6 +3,7 @@ package steps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
+import pages.YoutubeLikedVideosListPage;
 import pages.YoutubeMainPage;
 import util.Constants;
 import util.DriverFactory;
@@ -10,6 +11,7 @@ import util.DriverFactory;
 public class BasicInteractions {
     private final WebDriver driver = DriverFactory.getDriver();
     private final YoutubeMainPage youtubeMainPage = new YoutubeMainPage(driver);
+    private final YoutubeLikedVideosListPage youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
 
     @Given("I open the youtube main page")
     public void openYoutubeMainPage() {

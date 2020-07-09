@@ -3,18 +3,17 @@ package steps;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import org.junit.AfterClass;
 import org.openqa.selenium.WebDriver;
-import pages.YoutubeChannelsList;
+import pages.YoutubeChannelsListPage;
+import pages.YoutubeLikedVideosListPage;
 import pages.YoutubeMainPage;
 import util.Constants;
 import util.DriverFactory;
 
 public class Hooks {
 
-    private static final WebDriver driver = DriverFactory.getDriver();
-    private static final YoutubeChannelsList youtubeChannelsList = new YoutubeChannelsList(driver);
-    private static final YoutubeMainPage mainPage = new YoutubeMainPage(driver);
+    private static WebDriver driver;
+    private static YoutubeLikedVideosListPage youtubeLikedVideosListPage;
 
     @Before
     public static void setUp() {
@@ -22,16 +21,34 @@ public class Hooks {
 
     }
 
-    @After(order = 10, value = "@channels")
+    @After(order = 1, value = "@channels")
     public static void unsubscribeToChannels() {
+        driver = DriverFactory.getDriver();
+        YoutubeChannelsListPage youtubeChannelsListPage = new YoutubeChannelsListPage(driver);
+
         driver.get(Constants.YOUTUBE_MAIN_URL);
         driver.manage().window().maximize();
 
-        youtubeChannelsList.unsubscribeToAllChannels();
+        youtubeChannelsListPage.unsubscribeToAllChannels();
     }
 
-    @After(order = 1)
+    @After(order = 0)
     public static void quitDriver(){
+        driver = DriverFactory.getDriver();
+        youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
+
         DriverFactory.quitDriver();
+
+    }
+
+    @After(order = 2, value = "@videos")
+    public static void dislikeAllVideosFromLikedList() {
+        driver = DriverFactory.getDriver();
+        youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
+
+        driver.get(Constants.YOUTUBE_MAIN_URL);
+        driver.manage().window().maximize();
+
+        youtubeLikedVideosListPage.dislikeAllVideos();
     }
 }
