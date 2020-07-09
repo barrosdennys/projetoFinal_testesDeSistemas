@@ -6,3 +6,15 @@ Feature: Video search
     And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
     When I search for a video called "ççççççéééééé"
     Then I should see the No results found messages
+
+  @videos
+  Scenario: Like a video and check the Liked Videos list
+    Given I open the youtube main page
+    And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
+    And I search for a video called "Rebecca Black - Friday"
+    And I click on the video called "Rebecca Black - Friday"
+    When I like the video
+    And I select the option "Liked videos" in the lateral menu
+    Then I should see the video "Rebecca Black - Friday" in the Liked videos list
+
+

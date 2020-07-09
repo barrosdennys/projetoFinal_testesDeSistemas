@@ -1,7 +1,6 @@
-@test
+@test @channels
 Feature: Channels actions
 
-  @channels
   Scenario: Subscribe to a channel
     Given I open the youtube main page
     And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
