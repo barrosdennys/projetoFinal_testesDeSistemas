@@ -25,7 +25,6 @@ public class YoutubeMainPage {
         GoogleAccountPage googleAccountPage = new GoogleAccountPage(driver);
 
         page.waitAndClick(signInBtn);
-        driver.navigate().refresh();
 
         googleAccountPage.fillLoginInfo(email, password);
 
