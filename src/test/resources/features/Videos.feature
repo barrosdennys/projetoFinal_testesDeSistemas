@@ -17,4 +17,10 @@ Feature: Video search
     And I select the option "Liked videos" in the lateral menu
     Then I should see the video "Rebecca Black - Friday" in the Liked videos list
 
+  Scenario: Add video to be watched in the miniplayer
+    Given I open the youtube main page
+    And I search for a video called "Flying Colors - Geronimo (Third Degree)"
+    When I select "Add to queue" menu option from the video "Flying Colors - Geronimo (Third Degree)"
+    Then I should see the video title "Flying Colors - Geronimo (Third Degree)" in the miniplayer
+
 

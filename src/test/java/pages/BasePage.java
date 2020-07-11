@@ -14,23 +14,30 @@ public class BasePage {
     private final WebDriverWait wait;
     private final Actions action;
 
-    public BasePage (WebDriver driver){
+    public BasePage(WebDriver driver) {
         this.driver = driver;
         wait = DriverFactory.getWait();
         action = new Actions(driver);
     }
 
-    public void waitAndClick(By locator){
+    public void waitAndClick(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         driver.findElement(locator).click();
     }
 
-    public void waitAndSendKeys(By locator, String keys){
+    public void waitAndSendKeys(By locator, String keys) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         driver.findElement(locator).sendKeys(keys);
     }
 
-    public void mouseOverElement(WebElement element){
+    public void mouseOverElement(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        action.moveToElement(element).perform();
+    }
+
+    public void mouseOverElement(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        WebElement element = driver.findElement(locator);
         action.moveToElement(element).perform();
     }
 
