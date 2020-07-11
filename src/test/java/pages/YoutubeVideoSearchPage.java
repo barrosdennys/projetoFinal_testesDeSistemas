@@ -12,17 +12,8 @@ public class YoutubeVideoSearchPage {
     private final BasePage page;
     private final By noResultsTitle = By.cssSelector(".promo-message .promo-title");
     private final By noResultsBody = By.cssSelector(".promo-message .promo-title ~ .promo-body-text");
-    private final By videoOptions = By.cssSelector("#info #menu #top-level-buttons ~ #button");
-    private final By addedToLikedVideosToast = By.xpath("//span[contains(text(),'Added to Liked videos')]");
-    private final By likeButton = By.cssSelector("#info #menu #top-level-buttons " +
-            "ytd-toggle-button-renderer:nth-child(1)");
-    private final By dislikeButton = By.cssSelector("#info #menu #top-level-buttons " +
-            "ytd-toggle-button-renderer:nth-child(2)");
-    private final By shareButton = By.cssSelector("#info #menu #top-level-buttons " +
-            "ytd-button-renderer:nth-child(3)");
-    private final By saveButton = By.cssSelector("#info #menu #top-level-buttons " +
-            "ytd-button-renderer:nth-child(4)");
-
+    private final By miniplayerVideoTitle = By.cssSelector("div.ytd-miniplayer[role=dialog]" +
+            " div#info-bar yt-formatted-string[title]");
 
     public YoutubeVideoSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -41,17 +32,26 @@ public class YoutubeVideoSearchPage {
     }
 
     public void clickOnVideoTitle(String videoName) {
-        By videoTitle = By.cssSelector("a#video-title[title='"+videoName+"']");
+        By videoTitle = By.cssSelector("a#video-title[title='" + videoName + "']");
         page.waitAndClick(videoTitle);
 
     }
 
-    public void likeVideo(){
-        page.waitAndClick(likeButton);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(addedToLikedVideosToast));
+    public void selectVideoMenuOption(String videoName, String option) {
+        By videoSettings = By.xpath("//ytd-video-renderer//a[@id='video-title']" +
+                "[contains(@title,'" + videoName + "')]//ancestor::h3//following-sibling::div");
+
+        By videoSettingsOption = By.xpath("//ytd-menu-popup-renderer//yt-formatted-string[contains" +
+                "(text(),'" + option + "')]");
+
+        page.mouseOverElement(videoSettings);
+        page.waitAndClick(videoSettings);
+        page.waitAndClick(videoSettingsOption);
+
     }
 
-    public void dislikeVideo(){
-        page.waitAndClick(dislikeButton);
+    public String getMiniplayerVideoTitle() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(miniplayerVideoTitle));
+        return driver.findElement(miniplayerVideoTitle).getText();
     }
 }

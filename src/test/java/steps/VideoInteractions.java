@@ -6,15 +6,18 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.YoutubeLikedVideosListPage;
+import pages.YoutubeVideoPage;
 import pages.YoutubeVideoSearchPage;
 import util.DriverFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListInteractions {
+public class VideoInteractions {
     private final WebDriver driver = DriverFactory.getDriver();
     private final YoutubeVideoSearchPage youtubeVideoSearchPage = new YoutubeVideoSearchPage(driver);
     private final YoutubeLikedVideosListPage youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
+    private final YoutubeVideoPage youtubeVideoPage = new YoutubeVideoPage(driver);
 
     @Then("I should see the No results found messages")
     public void noResultsFoundMessage() {
@@ -29,7 +32,7 @@ public class VideoListInteractions {
 
     @When("I like the video")
     public void likeVideo() {
-        youtubeVideoSearchPage.likeVideo();
+        youtubeVideoPage.likeVideo();
     }
 
     @When("I click on the video called {string}")
@@ -47,5 +50,17 @@ public class VideoListInteractions {
         }
 
         Assert.assertTrue(listItems.contains(videoTitle));
+    }
+
+    @When("I select {string} menu option from the video {string}")
+    public void selectMenuOptionFromVideoInList(String option, String videoTitle) {
+        youtubeVideoSearchPage.selectVideoMenuOption(videoTitle, option);
+
+    }
+
+    @Then("I should see the video title {string} in the miniplayer")
+    public void assertVideoInMiniplayer(String videoTitle) {
+        String actualResult = youtubeVideoSearchPage.getMiniplayerVideoTitle();
+        Assert.assertEquals(videoTitle, actualResult);
     }
 }
