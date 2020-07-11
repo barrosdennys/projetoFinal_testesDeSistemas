@@ -1,4 +1,4 @@
-@channels
+@test @channels
 Feature: Channels actions
 
   Scenario: Subscribe to a channel

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import pages.YoutubeLikedVideosListPage;
 import pages.YoutubeVideoPage;
 import pages.YoutubeVideoSearchPage;
+import pages.YoutubeWatchLaterListPage;
 import util.DriverFactory;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class VideoInteractions {
     private final YoutubeVideoSearchPage youtubeVideoSearchPage = new YoutubeVideoSearchPage(driver);
     private final YoutubeLikedVideosListPage youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
     private final YoutubeVideoPage youtubeVideoPage = new YoutubeVideoPage(driver);
+    private final YoutubeWatchLaterListPage youtubeWatchLaterListPage = new YoutubeWatchLaterListPage(driver);
 
     @Then("I should see the No results found messages")
     public void noResultsFoundMessage() {
@@ -62,5 +64,22 @@ public class VideoInteractions {
     public void assertVideoInMiniplayer(String videoTitle) {
         String actualResult = youtubeVideoSearchPage.getMiniplayerVideoTitle();
         Assert.assertEquals(videoTitle, actualResult);
+    }
+
+    @When("I add video to playlist {string}")
+    public void addVideoToWatchLater(String playlistName) {
+        youtubeVideoPage.addVideoToPlaylist(playlistName);
+    }
+
+    @Then("I should see the video {string} in the Watch later videos list")
+    public void verifyWatchLaterList(String videoTitle) {
+        List<WebElement> watchLaterList = youtubeWatchLaterListPage.getListOfWatchLater();
+        List<String> listItems = new ArrayList<String>();
+
+        for (WebElement listItem : watchLaterList) {
+            listItems.add(listItem.getText());
+        }
+
+        Assert.assertTrue(listItems.contains(videoTitle));
     }
 }

@@ -49,7 +49,7 @@ public class YoutubeMainPage {
         By menuOption = By.xpath("//div[@id='sections']//div[@id='items']" +
                 "//a[contains(@title,'" + option + "')]");
 
-        if (!driver.findElement(menuOption).isDisplayed()){
+        if (!driver.findElement(menuOption).isDisplayed()) {
             page.waitAndClick(menuIcon);
 
         }
