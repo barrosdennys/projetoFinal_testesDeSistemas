@@ -1,9 +1,9 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import util.DriverFactory;
@@ -26,22 +26,25 @@ public class YoutubeLikedVideosListPage {
 
     public List<WebElement> getListOfLikedVideos() {
         By listOfLikedVideos = By.cssSelector("span#video-title");
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(listOfLikedVideos));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(listOfLikedVideos));
+        } catch (TimeoutException e) {
+            System.out.println("The Liked videos list is empty!");
+        }
         return driver.findElements(listOfLikedVideos);
     }
 
-    public void removeFromLikedVideo (String video){
+    public void removeFromLikedVideo(String video) {
         selectLikedVideoMenuOption(video, "Remove from Liked videos");
         wait.until(ExpectedConditions.visibilityOfElementLocated(removedFromLikedVideosToast));
     }
 
-    public void selectLikedVideoMenuOption (String video, String option){
-        By videoMenu = By.xpath("//span[@title='"+video+"']//ancestor::" +
+    public void selectLikedVideoMenuOption(String video, String option) {
+        By videoMenu = By.xpath("//span[@title='" + video + "']//ancestor::" +
                 "a//following-sibling::div[@id='menu']//button[@aria-label='Action menu']");
 
         By menuOption = By.xpath("//yt-formatted-string[@class='style-scope" +
-                " ytd-menu-service-item-renderer'][contains(text(),'"+option+"')]");
+                " ytd-menu-service-item-renderer'][contains(text(),'" + option + "')]");
 
         page.waitAndClick(videoMenu);
         page.waitAndClick(menuOption);

@@ -10,11 +10,11 @@ public class GoogleAccountPage {
     private final By nextButtonEmail = By.cssSelector("#identifierNext");
     private final By nextButtonPassword = By.cssSelector("#passwordNext");
 
-    public GoogleAccountPage(WebDriver driver){
+    public GoogleAccountPage(WebDriver driver) {
         base = new BasePage(driver);
     }
 
-    public void fillLoginInfo(String email, String password){
+    public void fillLoginInfo(String email, String password) {
         base.waitAndSendKeys(emailInput, email);
         base.waitAndClick(nextButtonEmail);
         base.waitAndSendKeys(emailPassword, password);

@@ -1,6 +1,5 @@
 package runner;
 
-import util.DriverFactory;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;

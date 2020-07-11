@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import util.DriverFactory;
+
 import java.util.List;
 
 public class YoutubeChannelsListPage {
@@ -20,7 +21,7 @@ public class YoutubeChannelsListPage {
     public YoutubeChannelsListPage(WebDriver driver) {
         this.driver = driver;
         wait = DriverFactory.getWait();
-        page = new BasePage (driver);
+        page = new BasePage(driver);
     }
 
     /**

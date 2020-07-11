@@ -20,6 +20,9 @@ public class YoutubeVideoPage {
             "ytd-button-renderer:nth-child(3)");
     private final By saveButton = By.cssSelector("#info #menu #top-level-buttons " +
             "ytd-button-renderer:nth-child(4)");
+    private final By saveToCloseButton = By.cssSelector("#header #close-button");
+    private By playlist;
+    private final By savedToWatchLaterToast = By.xpath("//span[contains(text(),'Saved to Watch later')]");
 
     public YoutubeVideoPage(WebDriver driver) {
         this.driver = driver;
@@ -36,5 +39,12 @@ public class YoutubeVideoPage {
         page.waitAndClick(dislikeButton);
     }
 
+    public void addVideoToPlaylist(String playlistName) {
+        page.waitAndClick(saveButton);
+        playlist = By.xpath("//div[contains(@id,'checkbox')]//yt-formatted-string[text()='" + playlistName + "']");
+        page.waitAndClick(playlist);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(savedToWatchLaterToast));
+        page.waitAndClick(saveToCloseButton);
+    }
 
 }
