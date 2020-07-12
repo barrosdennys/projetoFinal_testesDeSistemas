@@ -32,6 +32,14 @@ Feature: Video search
     And I select the option "Watch later" in the lateral menu
     Then I should see the video "Rebecca Black - Friday" in the Watch later videos list
 
+  @videos
+  Scenario: Watch a video and check the History list
+    Given I open the youtube main page
+    And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
+    And I search for a video called "Rebecca Black - Friday"
+    And I click on the video called "Rebecca Black - Friday"
+    And I select the option "History" in the lateral menu
+    Then I should see the video "Rebecca Black - Friday" in the History list
   @playlist
   Scenario: Add video to a new playlist and the new playlist
     Given I open the youtube main page

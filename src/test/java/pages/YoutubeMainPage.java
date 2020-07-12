@@ -51,7 +51,6 @@ public class YoutubeMainPage {
 
         if (!driver.findElement(menuOption).isDisplayed()) {
             page.waitAndClick(menuIcon);
-
         }
 
         page.waitAndClick(menuOption);

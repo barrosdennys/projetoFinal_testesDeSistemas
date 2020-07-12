@@ -11,6 +11,7 @@ import util.DriverFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class VideoInteractions {
     private final WebDriver driver = DriverFactory.getDriver();
@@ -18,6 +19,7 @@ public class VideoInteractions {
     private final YoutubeLikedVideosListPage youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
     private final YoutubeVideoPage youtubeVideoPage = new YoutubeVideoPage(driver);
     private final YoutubeWatchLaterListPage youtubeWatchLaterListPage = new YoutubeWatchLaterListPage(driver);
+    private final YoutubeHistoryListPage youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
     private final YoutubePlaylistPage youtubePlaylistPage = new YoutubePlaylistPage(driver);
 
     @Then("I should see the No results found messages")
@@ -76,6 +78,18 @@ public class VideoInteractions {
         List<String> listItems = new ArrayList<String>();
 
         for (WebElement listItem : watchLaterList) {
+            listItems.add(listItem.getText());
+        }
+
+        Assert.assertTrue(listItems.contains(videoTitle));
+    }
+
+    @Then("I should see the video {string} in the History list")
+    public void verifyHistoryList(String videoTitle) {
+        List<WebElement> historyList = youtubeHistoryListPage.getListOfHistory();
+        List<String> listItems = new ArrayList<String>();
+
+        for (WebElement listItem : historyList) {
             listItems.add(listItem.getText());
         }
 

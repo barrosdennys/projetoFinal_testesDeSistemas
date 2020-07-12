@@ -44,8 +44,10 @@ public class YoutubeVideoPage {
     }
 
     public void addVideoToPlaylist(String playlistName) {
+        By savedToWatchLaterToast = By.xpath("//span[contains(text(),'Saved to Watch later')]");
+        By playlist = By.xpath("//div[contains(@id,'checkbox')]//yt-formatted-string[text()='" + playlistName + "']");
+
         page.waitAndClick(saveButton);
-        playlist = By.xpath("//div[contains(@id,'checkbox')]//yt-formatted-string[text()='" + playlistName + "']");
         page.waitAndClick(playlist);
         wait.until(ExpectedConditions.visibilityOfElementLocated(savedToWatchLaterToast));
         page.waitAndClick(saveToCloseButton);
