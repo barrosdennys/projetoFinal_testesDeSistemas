@@ -23,6 +23,10 @@ public class YoutubeVideoPage {
     private final By saveToCloseButton = By.cssSelector("#header #close-button");
     private By playlist;
     private final By savedToWatchLaterToast = By.xpath("//span[contains(text(),'Saved to Watch later')]");
+    private final By newPlaylistButton = By.cssSelector("a#endpoint paper-item yt-formatted-string#label");
+    private final By namePlaylistInput = By.cssSelector("#name-input paper-input#input input");
+    private final By createPlaylistButton = By.cssSelector("#actions paper-button#button");
+
 
     public YoutubeVideoPage(WebDriver driver) {
         this.driver = driver;
@@ -47,4 +51,13 @@ public class YoutubeVideoPage {
         page.waitAndClick(saveToCloseButton);
     }
 
+    public void createNewPlaylist (String playlistName){
+        page.waitAndClick(saveButton);
+        By addedToPlaylistToast = By.xpath("//span[contains(text(),'Added to "+playlistName+"')]");
+        page.waitAndClick(newPlaylistButton);
+        page.waitAndSendKeys(namePlaylistInput, playlistName);
+        page.waitAndClick(createPlaylistButton);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(addedToPlaylistToast));
+
+    }
 }
