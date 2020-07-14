@@ -6,6 +6,7 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import pages.YoutubeChannelsListPage;
 import pages.YoutubeLikedVideosListPage;
+import pages.YoutubePlaylistPage;
 import pages.YoutubeWatchLaterListPage;
 import util.Constants;
 import util.DriverFactory;
@@ -15,6 +16,7 @@ public class Hooks {
     private static WebDriver driver;
     private static YoutubeLikedVideosListPage youtubeLikedVideosListPage;
     private static YoutubeWatchLaterListPage YoutubeWatchLaterListPage;
+    private static YoutubePlaylistPage youtubePlaylistPage;
 
     @Before
     public static void setUp() {
@@ -62,5 +64,15 @@ public class Hooks {
         driver.manage().window().maximize();
 
         YoutubeWatchLaterListPage.removeAllWatchLater();
+    }
+
+    @After (order =4, value ="@playlist")
+    public static void removePlaylist(){
+        driver = DriverFactory.getDriver();
+        youtubePlaylistPage = new YoutubePlaylistPage(driver);
+
+        driver.get(Constants.YOUTUBE_MAIN_URL);
+        driver.manage().window().maximize();
+        youtubePlaylistPage.deletePlaylist("playlist - test");
     }
 }

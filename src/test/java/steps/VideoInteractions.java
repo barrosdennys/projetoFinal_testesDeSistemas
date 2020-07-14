@@ -1,14 +1,12 @@
 package steps;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pages.YoutubeLikedVideosListPage;
-import pages.YoutubeVideoPage;
-import pages.YoutubeVideoSearchPage;
-import pages.YoutubeWatchLaterListPage;
+import pages.*;
 import util.DriverFactory;
 
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ public class VideoInteractions {
     private final YoutubeLikedVideosListPage youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
     private final YoutubeVideoPage youtubeVideoPage = new YoutubeVideoPage(driver);
     private final YoutubeWatchLaterListPage youtubeWatchLaterListPage = new YoutubeWatchLaterListPage(driver);
+    private final YoutubePlaylistPage youtubePlaylistPage = new YoutubePlaylistPage(driver);
 
     @Then("I should see the No results found messages")
     public void noResultsFoundMessage() {
@@ -82,4 +81,24 @@ public class VideoInteractions {
 
         Assert.assertTrue(listItems.contains(videoTitle));
     }
+
+
+    @Given("I save the video in a new playlist named {string}")
+    public void saveVideoInNewPlaylist(String playlistName) {
+        youtubeVideoPage.createNewPlaylist(playlistName);
+    }
+
+    @Then("I should see the video {string} in the playlist")
+    public void verifyVideoInPlaylist(String videoTitle) {
+        List<WebElement> listPlaylist = youtubePlaylistPage.getPlaylistVideos();
+        List<String> listItems = new ArrayList<String>();
+
+        for (WebElement listItem : listPlaylist) {
+            listItems.add(listItem.getText());
+        }
+
+        Assert.assertTrue(listItems.contains(videoTitle));
+
+    }
+
 }
