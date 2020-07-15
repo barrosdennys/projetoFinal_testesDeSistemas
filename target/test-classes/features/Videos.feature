@@ -1,6 +1,7 @@
 @test
 Feature: Video search
 
+
   Scenario: Search for a video that will not return any result
     Given I open the youtube main page
     When I search for a video called "ççççççéééééé"
@@ -32,11 +33,24 @@ Feature: Video search
     And I select the option "Watch later" in the lateral menu
     Then I should see the video "Rebecca Black - Friday" in the Watch later videos list
 
+<<<<<<< Updated upstream
   @videos
   Scenario: Watch a video and check the History list
+=======
+  @playlist
+  Scenario: Add video to a new playlist and the new playlist
+>>>>>>> Stashed changes
     Given I open the youtube main page
     And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
     And I search for a video called "Rebecca Black - Friday"
     And I click on the video called "Rebecca Black - Friday"
+<<<<<<< Updated upstream
     And I select the option "History" in the lateral menu
     Then I should see the video "Rebecca Black - Friday" in the History list
+=======
+    And I save the video in a new playlist named "playlist - test"
+    When I select the option "playlist - test" in the lateral menu
+    Then I should see the video "Rebecca Black - Friday" in the playlist
+
+
+>>>>>>> Stashed changes

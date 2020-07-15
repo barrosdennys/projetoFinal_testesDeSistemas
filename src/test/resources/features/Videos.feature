@@ -1,6 +1,7 @@
 @test
 Feature: Video search
 
+
   Scenario: Search for a video that will not return any result
     Given I open the youtube main page
     When I search for a video called "ççççççéééééé"
