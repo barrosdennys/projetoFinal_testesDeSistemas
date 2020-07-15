@@ -21,7 +21,6 @@ public class YoutubeVideoPage {
     private final By saveButton = By.cssSelector("#info #menu #top-level-buttons " +
             "ytd-button-renderer:nth-child(4)");
     private final By saveToCloseButton = By.cssSelector("#header #close-button");
-    private By playlist;
     private final By savedToWatchLaterToast = By.xpath("//span[contains(text(),'Saved to Watch later')]");
     private final By newPlaylistButton = By.cssSelector("a#endpoint paper-item yt-formatted-string#label");
     private final By namePlaylistInput = By.cssSelector("#name-input paper-input#input input");
@@ -44,8 +43,8 @@ public class YoutubeVideoPage {
     }
 
     public void addVideoToPlaylist(String playlistName) {
+        By playlist = By.xpath("//div[contains(@id,'checkbox')]//yt-formatted-string[text()='" + playlistName + "']");
         page.waitAndClick(saveButton);
-        playlist = By.xpath("//div[contains(@id,'checkbox')]//yt-formatted-string[text()='" + playlistName + "']");
         page.waitAndClick(playlist);
         wait.until(ExpectedConditions.visibilityOfElementLocated(savedToWatchLaterToast));
         page.waitAndClick(saveToCloseButton);
