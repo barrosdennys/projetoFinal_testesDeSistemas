@@ -1,8 +1,10 @@
 package util;
 
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DriverFactory {
@@ -12,8 +14,14 @@ public class DriverFactory {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
             driver = new ChromeDriver();
+            Capabilities capability = ((RemoteWebDriver) driver).getCapabilities();
+            if (capability.getPlatform().is(Platform.WINDOWS)) {
+                System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+            }
+            else {
+                System.setProperty("webdriver.chrome.driver", "chromedriver");
+            }
         }
         return driver;
     }
