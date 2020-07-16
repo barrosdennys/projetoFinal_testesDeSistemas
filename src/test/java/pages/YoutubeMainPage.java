@@ -14,6 +14,9 @@ public class YoutubeMainPage {
     private final By avatarImg = By.cssSelector("img[alt='Avatar image']");
     private final By searchInput = By.cssSelector("input#search");
     private final By searchBtn = By.cssSelector("button#search-icon-legacy");
+    private final By videoSubMenu = By.cssSelector("#dismissable #menu button");
+    private final By dontRecommend = By.xpath("//*[contains(text(), 'Don't recommend channel')]");
+    private final By wontRecommendMsg = By.cssSelector("#content #dismissed #text");
 
     public YoutubeMainPage(WebDriver driver) {
         this.driver = driver;
@@ -27,8 +30,6 @@ public class YoutubeMainPage {
         page.waitAndClick(signInBtn);
 
         googleAccountPage.fillLoginInfo(email, password);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(avatarImg));
     }
 
     public void searchVideo(String videoName) {
@@ -73,6 +74,20 @@ public class YoutubeMainPage {
         page.waitAndClick(avatarImg);
         page.waitAndClick(menuOption);
 
+    }
+
+    public void clickSubMenu(){
+        page.mouseOverElement(By.id("video-title-link"));
+        page.waitAndClick(videoSubMenu);
+    }
+
+    public void clickDontRecommend(){
+        page.waitAndClick(dontRecommend);
+    }
+
+    public String getWontRecommendMsg() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(wontRecommendMsg));
+        return driver.findElement(wontRecommendMsg).getText();
     }
 
 }
