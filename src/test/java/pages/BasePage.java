@@ -41,5 +41,11 @@ public class BasePage {
         action.moveToElement(element).perform();
     }
 
+    public boolean isElementPresent(By locator) {
+        if (driver.findElements(locator).size() != 0) {
+            return true;
+        }
+        return false;
+    }
 
 }

@@ -5,6 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import pages.YoutubeChannelsListPage;
+import pages.YoutubeHistoryListPage;
 import pages.YoutubeLikedVideosListPage;
 import pages.YoutubePlaylistPage;
 import pages.YoutubeWatchLaterListPage;
@@ -15,7 +16,8 @@ public class Hooks {
 
     private static WebDriver driver;
     private static YoutubeLikedVideosListPage youtubeLikedVideosListPage;
-    private static YoutubeWatchLaterListPage YoutubeWatchLaterListPage;
+    private static YoutubeWatchLaterListPage youtubeWatchLaterListPage;
+    private static YoutubeHistoryListPage youtubeHistoryListPage;
     private static YoutubePlaylistPage youtubePlaylistPage;
 
     @Before
@@ -58,15 +60,26 @@ public class Hooks {
     @After(order = 3, value = "@videos")
     public static void removeAllWatchLater() {
         driver = DriverFactory.getDriver();
-        YoutubeWatchLaterListPage = new YoutubeWatchLaterListPage(driver);
+        youtubeWatchLaterListPage = new YoutubeWatchLaterListPage(driver);
 
         driver.get(Constants.YOUTUBE_MAIN_URL);
         driver.manage().window().maximize();
 
-        YoutubeWatchLaterListPage.removeAllWatchLater();
+        youtubeWatchLaterListPage.removeAllWatchLater();
     }
 
-    @After (order =4, value ="@playlist")
+    @After(order = 4, value = "@videos")
+    public static void clearAllWatchHistory() {
+        driver = DriverFactory.getDriver();
+        youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
+
+        driver.get(Constants.YOUTUBE_MAIN_URL);
+        driver.manage().window().maximize();
+
+        youtubeHistoryListPage.clearAllWatchHistory();
+    }
+
+    @After (order =5, value ="@playlist")
     public static void removePlaylist(){
         driver = DriverFactory.getDriver();
         youtubePlaylistPage = new YoutubePlaylistPage(driver);
