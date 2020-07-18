@@ -1,8 +1,6 @@
 package steps;
 
-
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import pages.YoutubeChannelsListPage;
 import pages.YoutubeHistoryListPage;
@@ -19,12 +17,6 @@ public class Hooks {
     private static YoutubeWatchLaterListPage youtubeWatchLaterListPage;
     private static YoutubeHistoryListPage youtubeHistoryListPage;
     private static YoutubePlaylistPage youtubePlaylistPage;
-
-    @Before
-    public static void setUp() {
-        //TO-DO
-
-    }
 
     @After(order = 1, value = "@channels")
     public static void unsubscribeToChannels() {
@@ -70,7 +62,7 @@ public class Hooks {
 
     @After(order = 4, value = "@history")
     public static void clearAllWatchHistory() {
-       driver = DriverFactory.getDriver();
+        driver = DriverFactory.getDriver();
         youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
 
         driver.get(Constants.YOUTUBE_MAIN_URL);
@@ -79,8 +71,8 @@ public class Hooks {
         youtubeHistoryListPage.clearAllWatchHistory();
     }
 
-    @After (order =5, value ="@playlist")
-    public static void removePlaylist(){
+    @After(order = 5, value = "@playlist")
+    public static void removePlaylist() {
         driver = DriverFactory.getDriver();
         youtubePlaylistPage = new YoutubePlaylistPage(driver);
 
@@ -98,5 +90,16 @@ public class Hooks {
         driver.manage().window().maximize();
 
         youtubeHistoryListPage.clearCommentsHistory();
+    }
+
+    @After(order = 7, value = "@pauseHistory")
+    public static void reactivateHistory() {
+        driver = DriverFactory.getDriver();
+        youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
+
+        driver.get(Constants.YOUTUBE_MAIN_URL);
+        driver.manage().window().maximize();
+
+        youtubeHistoryListPage.reactivateHistory();
     }
 }

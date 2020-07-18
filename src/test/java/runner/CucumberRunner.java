@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
         // Readable format of the console output from Cucumber
         monochrome = true
 )
+
 public class CucumberRunner {
 
 }

@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.YoutubeChannelsListPage;
 import util.DriverFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,6 @@ public class ChannelListInteractions {
     @Then("the subscribe button of the channel {string} has the text {string}")
     public void checkSubscriptionStatus(String channelName, String expectedStatus) {
         String actualSubscriptionStatus = youtubeChannelsListPage.getSubscriptionStatus(channelName);
-
         Assert.assertEquals(expectedStatus, actualSubscriptionStatus);
     }
 }

@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.BasePage;
 import util.DriverFactory;
-
 import java.util.List;
 
 public class YoutubeWatchLaterListPage {
@@ -31,13 +31,13 @@ public class YoutubeWatchLaterListPage {
         } catch (TimeoutException e) {
             System.out.println("The Watch later list is empty!");
         }
+
         return driver.findElements(listOfWatchLater);
     }
 
     public void selectWatchLaterMenuOption(String video, String option) {
         By videoMenu = By.xpath("//span[@title='" + video + "']//ancestor::" +
                 "a//following-sibling::div[@id='menu']//button[@aria-label='Action menu']");
-
         By menuOption = By.xpath("//yt-formatted-string[@class='style-scope" +
                 " ytd-menu-service-item-renderer']//span[contains(text(),'" + option + "')]");
 
