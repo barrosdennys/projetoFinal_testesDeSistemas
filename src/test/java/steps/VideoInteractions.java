@@ -22,6 +22,7 @@ public class VideoInteractions {
     private final YoutubeHistoryListPage youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
     private final YoutubePlaylistPage youtubePlaylistPage = new YoutubePlaylistPage(driver);
 
+
     @Then("I should see the No results found messages")
     public void noResultsFoundMessage() {
         String actualResultTitle = youtubeVideoSearchPage.getNoResultsTitleText();
@@ -114,4 +115,27 @@ public class VideoInteractions {
 
     }
 
+    @When("I make a comment {string} in the video")
+    public void makeCommentVideo(String comment) {
+        youtubeVideoPage.makeComments(comment);
+
+    }
+
+    @When("I change the History type to Comments")
+    public void selectCommentHistoryType() {
+        youtubeHistoryListPage.checkCommentHistory();
+
+    }
+
+    @Then("I should see the comment {string} in the Comments  list")
+    public void verifyCommentsHistoryList(String comment) {
+        List<WebElement> commentHistoryList = youtubeHistoryListPage.getListOfCommentsHistory();
+        List<String> listItems = new ArrayList<String>();
+
+        for (WebElement listItem : commentHistoryList) {
+            listItems.add(listItem.getText());
+        }
+
+        Assert.assertTrue(listItems.contains(comment));
+    }
 }

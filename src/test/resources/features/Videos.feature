@@ -52,3 +52,15 @@ Feature: Video search
     Then I should see the video "Rebecca Black - Friday" in the playlist
 
 
+  @playlist
+  Scenario: Make a comment in a video and check the comments history
+    Given I open the youtube main page
+    And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
+    And I search for a video called "Rebecca Black - Friday"
+    And I click on the video called "Rebecca Black - Friday"
+    When I make a comment "Comment test" in the video
+    And I select the option "History" in the lateral menu
+    And I change the History type to Comments
+    Then I should see the comment "Comment test" in the Comments  list
+
+

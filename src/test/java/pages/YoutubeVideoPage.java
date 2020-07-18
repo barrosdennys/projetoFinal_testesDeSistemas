@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,7 +26,9 @@ public class YoutubeVideoPage {
     private final By newPlaylistButton = By.cssSelector("a#endpoint paper-item yt-formatted-string#label");
     private final By namePlaylistInput = By.cssSelector("#name-input paper-input#input input");
     private final By createPlaylistButton = By.cssSelector("#actions paper-button#button");
-
+    private final By commentInputtwo = By.cssSelector("#comment-dialog #creation-box #contenteditable-root");
+    private final By commentInputone = By.cssSelector("#simple-box #placeholder-area");
+    private final By commentButton = By.cssSelector("#buttons #submit-button");
 
     public YoutubeVideoPage(WebDriver driver) {
         this.driver = driver;
@@ -57,6 +60,18 @@ public class YoutubeVideoPage {
         page.waitAndSendKeys(namePlaylistInput, playlistName);
         page.waitAndClick(createPlaylistButton);
         wait.until(ExpectedConditions.visibilityOfElementLocated(addedToPlaylistToast));
+
+    }
+
+    public void makeComments (String comment){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,450)", "");
+
+        //js.executeScript("window.scrollTo(0, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.clientHeight));");
+       page.waitAndClick(commentInputone);
+        page.waitAndSendKeys(commentInputtwo, comment);
+        page.waitAndClick(commentButton);
+      //  wait.until(ExpectedConditions.visibilityOfElementLocated(addedToPlaylistToast));
 
     }
 }

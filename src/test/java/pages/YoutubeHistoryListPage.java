@@ -15,6 +15,12 @@ public class YoutubeHistoryListPage {
     private final WebDriverWait wait;
     private final YoutubeMainPage youtubeMainPage;
     private final BasePage page;
+    private final By commentRadioButton = By.cssSelector("#options > ytd-sub-feed-option-renderer:nth-child(3) > a > paper-radio-button");
+    private final By commentText = By.cssSelector(".ytd-comment-history-entry-renderer .ytd-expander .content");
+    private final By commentName = By.cssSelector("#contents #contents");
+    private final By commentSettings = By.cssSelector("#menu #button yt-icon");
+    private final By deleteCommentButton = By.cssSelector("paper-listbox  ytd-menu-navigation-item-renderer:nth-child(2)");
+    private final By confirmDeleteCommentButton = By.cssSelector(".buttons #confirm-button");
 
     public YoutubeHistoryListPage(WebDriver driver) {
         this.driver = driver;
@@ -30,6 +36,13 @@ public class YoutubeHistoryListPage {
         return driver.findElements(listOfHistory);
     }
 
+    public List<WebElement> getListOfCommentsHistory() {
+        By listOfCommentsHistory = By.cssSelector(".ytd-comment-history-entry-renderer #content > yt-formatted-string");
+        this.waitCommentHistoryListUpdate(listOfCommentsHistory, 3);
+
+        return driver.findElements(listOfCommentsHistory);
+    }
+
     public void waitHistoryListUpdate(By listOfHistory, int refreshTime){
         int retry = 0;
 
@@ -39,6 +52,20 @@ public class YoutubeHistoryListPage {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(listOfHistory));
             } catch (TimeoutException e) {
                 System.out.println("History list is empty. Trying again.");
+            }
+            retry++;
+        }
+    }
+
+    public void waitCommentHistoryListUpdate(By listOfComment, int refreshTime){
+        int retry = 0;
+
+        while (!page.isElementPresent(listOfComment) && retry < refreshTime){
+            driver.navigate().refresh();
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(listOfComment));
+            } catch (TimeoutException e) {
+                System.out.println("Comment list is empty. Trying again.");
             }
             retry++;
         }
@@ -56,5 +83,26 @@ public class YoutubeHistoryListPage {
             page.waitAndClick(clearHistoryConfirmButton);
             wait.until(ExpectedConditions.visibilityOfElementLocated(clearedHistoryToast));
         }
+    }
+
+    public void clearCommentsHistory() {
+        youtubeMainPage.clickLateralMenu("History");
+
+        page.waitAndClick(commentRadioButton);
+        By listOfCommentsHistory = By.cssSelector(".ytd-comment-history-entry-renderer #content > yt-formatted-string");
+        this.waitCommentHistoryListUpdate(listOfCommentsHistory, 3);
+        page.mouseOverElement(commentName);
+       // page.waitAndClick(commentSettingsOne);
+        page.waitAndClick(commentSettings);
+        page.waitAndClick(deleteCommentButton);
+        page.waitAndClick(confirmDeleteCommentButton);
+
+    }
+
+
+
+    public void checkCommentHistory (){
+        page.waitAndClick(commentRadioButton);
+
     }
 }
