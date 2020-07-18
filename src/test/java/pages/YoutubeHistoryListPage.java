@@ -20,6 +20,11 @@ public class YoutubeHistoryListPage {
     private final By commentSettings = By.cssSelector("#menu #button yt-icon");
     private final By deleteCommentButton = By.cssSelector("paper-listbox  ytd-menu-navigation-item-renderer:nth-child(2)");
     private final By confirmDeleteCommentButton = By.cssSelector(".buttons #confirm-button");
+    private final By pauseHistory = By.cssSelector("#contents paper-button[aria-label='Pause watch history']");
+    private final By pauseButton = By.cssSelector("paper-button[aria-label='PAUSE']");
+    private final By emptyMessage = By.cssSelector("yt-formatted-string#message");
+    private final By turnOnButton = By.cssSelector("#contents paper-button[aria-label='Turn on watch history'] #text");
+
 
     public YoutubeHistoryListPage(WebDriver driver) {
         this.driver = driver;
@@ -95,7 +100,23 @@ public class YoutubeHistoryListPage {
         page.waitAndClick(confirmDeleteCommentButton);
     }
 
+    public void clickOnPauseHistory(){
+
+        page.waitAndClick(pauseHistory);
+        page.waitAndClick(pauseButton);
+    }
+
+    public String getEmptyListMessage(){
+        return driver.findElement(emptyMessage).getText();
+    }
+
+    public String getTurnOnText(){
+        return driver.findElement(turnOnButton).getText();
+    }
+
+
     public void checkCommentHistory (){
         page.waitAndClick(commentRadioButton);
+
     }
 }

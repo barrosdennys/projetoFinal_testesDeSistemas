@@ -63,3 +63,14 @@ Feature: Video search
     Then I should see the comment "Comment test" in the Comments  list
 
 
+  @videos2
+  Scenario: Watch a video, pause history and check the History list
+    Given I open the youtube main page
+    And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
+    And I select the option "History" in the lateral menu
+    And I click on Pause watch history
+    And I search for a video called "Rebecca Black - Friday"
+    And I click on the video called "Rebecca Black - Friday"
+    And I select the option "History" in the lateral menu
+    Then I should see "This list has no videos."
+    And I should see "Turn on watch history" is displayed
