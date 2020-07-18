@@ -16,7 +16,6 @@ public class YoutubeHistoryListPage {
     private final YoutubeMainPage youtubeMainPage;
     private final BasePage page;
     private final By commentRadioButton = By.cssSelector("#options > ytd-sub-feed-option-renderer:nth-child(3) > a > paper-radio-button");
-    private final By commentText = By.cssSelector(".ytd-comment-history-entry-renderer .ytd-expander .content");
     private final By commentName = By.cssSelector("#contents #contents");
     private final By commentSettings = By.cssSelector("#menu #button yt-icon");
     private final By deleteCommentButton = By.cssSelector("paper-listbox  ytd-menu-navigation-item-renderer:nth-child(2)");
@@ -87,22 +86,16 @@ public class YoutubeHistoryListPage {
 
     public void clearCommentsHistory() {
         youtubeMainPage.clickLateralMenu("History");
-
         page.waitAndClick(commentRadioButton);
         By listOfCommentsHistory = By.cssSelector(".ytd-comment-history-entry-renderer #content > yt-formatted-string");
         this.waitCommentHistoryListUpdate(listOfCommentsHistory, 3);
         page.mouseOverElement(commentName);
-       // page.waitAndClick(commentSettingsOne);
         page.waitAndClick(commentSettings);
         page.waitAndClick(deleteCommentButton);
         page.waitAndClick(confirmDeleteCommentButton);
-
     }
-
-
 
     public void checkCommentHistory (){
         page.waitAndClick(commentRadioButton);
-
     }
 }

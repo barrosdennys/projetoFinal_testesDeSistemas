@@ -10,18 +10,13 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 
         // Run the scenarios specified by tags
-        tags = {"@test"},
+        tags = {"@test1"},
 
         // Define the resources.features files location
         features = {"src/test/resources/features"},
 
         // Define the steps files location
         glue = {"steps"},
-
-        // Plugins
-        // plugin = {"pretty"},
-        // plugin = {"html:target/reports/simple-html-report", "json:target/reports/json-report.json"},
-        // plugin = {"de.monochromata.cucumber.report.PrettyReports:target/reports"},
 
         // Skip undefined steps from execution
         strict = true,
@@ -31,15 +26,6 @@ import org.junit.runner.RunWith;
 )
 public class CucumberRunner {
 
-    @BeforeClass
-    public static void setupClass() {
-        //TO DO
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-
-    }
 }
 
 

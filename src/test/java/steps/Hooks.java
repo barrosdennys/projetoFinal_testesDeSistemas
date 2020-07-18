@@ -46,7 +46,7 @@ public class Hooks {
 
     }
 
-    @After(order = 2, value = "@videos")
+    @After(order = 2, value = "@like")
     public static void dislikeAllVideosFromLikedList() {
         driver = DriverFactory.getDriver();
         youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
@@ -57,7 +57,7 @@ public class Hooks {
         youtubeLikedVideosListPage.dislikeAllVideos();
     }
 
-    @After(order = 3, value = "@videos")
+    @After(order = 3, value = "@watchlater")
     public static void removeAllWatchLater() {
         driver = DriverFactory.getDriver();
         youtubeWatchLaterListPage = new YoutubeWatchLaterListPage(driver);
@@ -68,7 +68,7 @@ public class Hooks {
         youtubeWatchLaterListPage.removeAllWatchLater();
     }
 
-    @After(order = 4, value = "@videos")
+    @After(order = 4, value = "@history")
     public static void clearAllWatchHistory() {
        driver = DriverFactory.getDriver();
         youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
@@ -89,7 +89,7 @@ public class Hooks {
         youtubePlaylistPage.deletePlaylist("playlist - test");
     }
 
-    @After(order = 6, value = "@playlist")
+    @After(order = 6, value = "@comment")
     public static void clearCommentHistory() {
         driver = DriverFactory.getDriver();
         youtubeHistoryListPage = new YoutubeHistoryListPage(driver);

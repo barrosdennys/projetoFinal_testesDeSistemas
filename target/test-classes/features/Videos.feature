@@ -6,7 +6,7 @@ Feature: Video search
     When I search for a video called "ççççççéééééé"
     Then I should see the No results found messages
 
-  @videos
+  @like
   Scenario: Like a video and check the Liked Videos list
     Given I open the youtube main page
     And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
@@ -22,7 +22,7 @@ Feature: Video search
     When I select "Add to queue" menu option from the video "Flying Colors - Geronimo (Third Degree)"
     Then I should see the video title "Flying Colors - Geronimo (Third Degree)" in the miniplayer
 
-  @videos
+  @watchlater
   Scenario: Add video to Watch Later and check the Watch Later list
     Given I open the youtube main page
     And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
@@ -32,7 +32,7 @@ Feature: Video search
     And I select the option "Watch later" in the lateral menu
     Then I should see the video "Rebecca Black - Friday" in the Watch later videos list
 
-  @videos
+  @history
   Scenario: Watch a video and check the History list
     Given I open the youtube main page
     And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
@@ -50,5 +50,16 @@ Feature: Video search
     And I save the video in a new playlist named "playlist - test"
     When I select the option "playlist - test" in the lateral menu
     Then I should see the video "Rebecca Black - Friday" in the playlist
+
+  @comment
+  Scenario: Make a comment in a video and check the comments history
+    Given I open the youtube main page
+    And I login with email "testdesistemas.dipr@gmail.com" and password "r3m3mb3r"
+    And I search for a video called "Rebecca Black - Friday"
+    And I click on the video called "Rebecca Black - Friday"
+    When I make a comment "Comment test" in the video
+    And I select the option "History" in the lateral menu
+    And I change the History type to Comments
+    Then I should see the comment "Comment test" in the Comments  list
 
 

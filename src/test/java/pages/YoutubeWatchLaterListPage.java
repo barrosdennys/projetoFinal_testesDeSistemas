@@ -43,7 +43,6 @@ public class YoutubeWatchLaterListPage {
 
         page.waitAndClick(videoMenu);
         page.waitAndClick(menuOption);
-
     }
 
     public void removeAllWatchLater() {

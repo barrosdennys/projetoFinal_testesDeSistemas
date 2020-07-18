@@ -15,7 +15,6 @@ public class YoutubeLikedVideosListPage {
     private final WebDriverWait wait;
     private final YoutubeMainPage youtubeMainPage;
     private final BasePage page;
-    private final By removedFromLikedVideosToast = By.xpath("//span[contains(text(),'Removed from Liked videos')]");
 
     public YoutubeLikedVideosListPage(WebDriver driver) {
         this.driver = driver;
@@ -32,11 +31,6 @@ public class YoutubeLikedVideosListPage {
             System.out.println("The Liked videos list is empty!");
         }
         return driver.findElements(listOfLikedVideos);
-    }
-
-    public void removeFromLikedVideo(String video) {
-        selectLikedVideoMenuOption(video, "Remove from Liked videos");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(removedFromLikedVideosToast));
     }
 
     public void selectLikedVideoMenuOption(String video, String option) {
@@ -62,15 +56,5 @@ public class YoutubeLikedVideosListPage {
                 selectLikedVideoMenuOption(video.getText(), "Remove from Liked videos");
             }
         }
-    }
-
-    //Not used right now
-    public void goToLikedVideosList() {
-        By likedVideosList = By.xpath("//span[@id='title'][contains(text(),'Liked videos')]");
-
-        youtubeMainPage.clickLateralMenu("Library");
-        page.waitAndClick(likedVideosList);
-        driver.navigate().refresh();
-
     }
 }

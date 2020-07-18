@@ -11,19 +11,16 @@ import util.DriverFactory;
 public class BasicInteractions {
     private final WebDriver driver = DriverFactory.getDriver();
     private final YoutubeMainPage youtubeMainPage = new YoutubeMainPage(driver);
-    private final YoutubeLikedVideosListPage youtubeLikedVideosListPage = new YoutubeLikedVideosListPage(driver);
 
     @Given("I open the youtube main page")
     public void openYoutubeMainPage() {
         driver.get(Constants.YOUTUBE_MAIN_URL);
         driver.manage().window().maximize();
-
     }
 
     @Given("I login with email {string} and password {string}")
     public void youtubeLogin(String email, String password) {
         youtubeMainPage.login(email, password);
-
     }
 
     @When("I search for a video called {string}")

@@ -14,16 +14,12 @@ public class Recommendations {
 
     @And("I access the first video submenu")
     public void accessVideoSubmenu() {
-
         youtubeMainPage.clickSubMenu();
-
     }
 
     @And("I click on Don't recommend channel")
     public void clickDontRecommendChannel() {
-
         youtubeMainPage.clickDontRecommend();
-
     }
 
     @Then("I should see the message {string}")

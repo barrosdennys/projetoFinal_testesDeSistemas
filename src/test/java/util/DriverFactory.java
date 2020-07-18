@@ -39,7 +39,6 @@ public class DriverFactory {
             driver.quit();
             wait = null;
             driver = null;
-
         }
     }
 }
