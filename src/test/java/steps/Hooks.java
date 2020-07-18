@@ -70,7 +70,7 @@ public class Hooks {
 
     @After(order = 4, value = "@videos")
     public static void clearAllWatchHistory() {
-        driver = DriverFactory.getDriver();
+       driver = DriverFactory.getDriver();
         youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
 
         driver.get(Constants.YOUTUBE_MAIN_URL);
@@ -87,5 +87,16 @@ public class Hooks {
         driver.get(Constants.YOUTUBE_MAIN_URL);
         driver.manage().window().maximize();
         youtubePlaylistPage.deletePlaylist("playlist - test");
+    }
+
+    @After(order = 6, value = "@playlist")
+    public static void clearCommentHistory() {
+        driver = DriverFactory.getDriver();
+        youtubeHistoryListPage = new YoutubeHistoryListPage(driver);
+
+        driver.get(Constants.YOUTUBE_MAIN_URL);
+        driver.manage().window().maximize();
+
+        youtubeHistoryListPage.clearCommentsHistory();
     }
 }
