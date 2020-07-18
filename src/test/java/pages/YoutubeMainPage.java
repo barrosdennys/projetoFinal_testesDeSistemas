@@ -15,7 +15,8 @@ public class YoutubeMainPage {
     private final By searchInput = By.cssSelector("input#search");
     private final By searchBtn = By.cssSelector("button#search-icon-legacy");
     private final By videoSubMenu = By.cssSelector("#dismissable #menu button");
-    private final By dontRecommend = By.xpath("//*[contains(text(), 'Don't recommend channel')]");
+    private final String strDont = "Don't recommend channel";
+    private final By dontRecommend = By.xpath("//*[contains(text(), '" + strDont + "')]");
     private final By wontRecommendMsg = By.cssSelector("#content #dismissed #text");
 
     public YoutubeMainPage(WebDriver driver) {
