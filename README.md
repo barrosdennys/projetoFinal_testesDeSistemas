@@ -2,7 +2,7 @@
 
 <b>Produto:</b> Youtube
 
-<b>Execução:</b> Execute a classe CucumberRunner. O browser a ser utilizado deve ser o Google Chrome (o driver já está no projeto)
+<b>Execução:</b> Execute a classe CucumberRunner. O browser a ser utilizado deve ser o Google Chrome (o driver já está no projeto). Caso Windows seja usado, descomente as linhas 17 e 18 da classe DriverFactory, e comente as linhas 14 e 15.
 
 <b>Classes:</b>
 
