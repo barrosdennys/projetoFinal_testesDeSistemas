@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -137,5 +138,24 @@ public class VideoInteractions {
         }
 
         Assert.assertTrue(listItems.contains(comment));
+    }
+
+    @And("I click on Pause watch history")
+    public void clickOnPause() {
+        youtubeHistoryListPage.clickOnPauseHistory();
+    }
+
+    @Then("I should see {string}")
+    public void verifyEmptyHistory(String emptyMessage) {
+
+        String actualResult = youtubeHistoryListPage.getEmptyListMessage();
+        Assert.assertEquals(emptyMessage, actualResult);
+    }
+
+    @And("I should see {string} is displayed")
+    public void verifyTurnOnMsg(String turnOnMsg) {
+
+        String actualResult = youtubeHistoryListPage.getTurnOnText();
+        Assert.assertEquals(turnOnMsg, actualResult);
     }
 }
