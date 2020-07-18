@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.BasePage;
 import util.DriverFactory;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class YoutubeHistoryListPage {
     private final By confirmDeleteCommentButton = By.cssSelector(".buttons #confirm-button");
     private final By pauseHistory = By.cssSelector("#contents paper-button[aria-label='Pause watch history']");
     private final By pauseButton = By.cssSelector("paper-button[aria-label='PAUSE']");
+    private final By turnOnButtonConfirmation = By.cssSelector("paper-button[aria-label='TURN ON']");
     private final By emptyMessage = By.cssSelector("yt-formatted-string#message");
     private final By turnOnButton = By.cssSelector("#contents paper-button[aria-label='Turn on watch history'] #text");
-
 
     public YoutubeHistoryListPage(WebDriver driver) {
         this.driver = driver;
@@ -76,23 +77,27 @@ public class YoutubeHistoryListPage {
     }
 
     public void clearAllWatchHistory() {
-        By clearHistoryButton = By.xpath("//paper-button[contains(@aria-label,'Clear all watch history')]");
-        By clearHistoryConfirmButton = By.xpath("//yt-formatted-string[contains(text(),'CLEAR WATCH HISTORY')]");
-        By clearedHistoryToast = By.xpath("//span[contains(text(),'Watch history cleared')]");
+        By clearHistoryButton = By.cssSelector("#button[aria-label='Clear all watch history']");
+        By clearHistoryConfirmButton = By.cssSelector("paper-button#button[aria-label='CLEAR WATCH HISTORY']");
+        By clearedHistoryToast = By.cssSelector("paper-toast#toast");
+        By clearHistoryButtonDisabled = By.cssSelector("#button[aria-label='Clear all watch history'][aria-disabled=true]");
 
         youtubeMainPage.clickLateralMenu("History");
 
-        if (getListOfHistory().size() != 0) {
-            page.waitAndClick(clearHistoryButton);
-            page.waitAndClick(clearHistoryConfirmButton);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(clearedHistoryToast));
+        if (!page.isElementPresent(clearHistoryButtonDisabled)){
+            if (getListOfHistory().size() != 0) {
+                page.waitAndClick(clearHistoryButton);
+                page.waitAndClick(clearHistoryConfirmButton);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(clearedHistoryToast));
+            }
         }
     }
 
     public void clearCommentsHistory() {
         youtubeMainPage.clickLateralMenu("History");
         page.waitAndClick(commentRadioButton);
-        By listOfCommentsHistory = By.cssSelector(".ytd-comment-history-entry-renderer #content > yt-formatted-string");
+        By listOfCommentsHistory = By.cssSelector(".ytd-comment-history-entry-renderer #content" +
+                " > yt-formatted-string");
         this.waitCommentHistoryListUpdate(listOfCommentsHistory, 3);
         page.mouseOverElement(commentName);
         page.waitAndClick(commentSettings);
@@ -101,7 +106,6 @@ public class YoutubeHistoryListPage {
     }
 
     public void clickOnPauseHistory(){
-
         page.waitAndClick(pauseHistory);
         page.waitAndClick(pauseButton);
     }
@@ -114,9 +118,13 @@ public class YoutubeHistoryListPage {
         return driver.findElement(turnOnButton).getText();
     }
 
-
     public void checkCommentHistory (){
         page.waitAndClick(commentRadioButton);
+    }
 
+    public void reactivateHistory(){
+        youtubeMainPage.clickLateralMenu("History");
+        page.waitAndClick(turnOnButton);
+        page.waitAndClick(turnOnButtonConfirmation);
     }
 }

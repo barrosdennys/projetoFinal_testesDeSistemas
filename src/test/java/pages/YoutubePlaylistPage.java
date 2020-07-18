@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.BasePage;
 import util.DriverFactory;
 
 import java.util.List;
@@ -16,7 +17,6 @@ public class YoutubePlaylistPage {
     private final WebDriverWait wait;
     private final BasePage page;
     private final YoutubeMainPage youtubeMainPage;
-
     private final By playlistSettingsButton = By.cssSelector("#items button#button[aria-label='Action menu']");
     private final By deletePlaylistButton = By.cssSelector("paper-listbox ytd-menu-service-item-renderer:last-child");
     private final By confirmDeleteButton = By.cssSelector(".buttons #confirm-button");
@@ -44,5 +44,4 @@ public class YoutubePlaylistPage {
         page.waitAndClick(deletePlaylistButton);
         page.waitAndClick(confirmDeleteButton);
     }
-
 }

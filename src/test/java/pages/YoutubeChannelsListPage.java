@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.BasePage;
 import util.DriverFactory;
 
 import java.util.List;
@@ -14,8 +15,7 @@ public class YoutubeChannelsListPage {
     private final WebDriver driver;
     private final BasePage page;
     private final By manageBtn = By.cssSelector("#button[aria-label=Manage]");
-    private final By subscriptionAddedToast = By.xpath("//span[contains(text(),'Subscription added')]");
-    private final By subscriptionRemovedToast = By.xpath("//span[contains(text(),'Subscription removed')]");
+    private final By subscriptionToast = By.cssSelector("paper-toast#toast");
     private final By unsubscriptionConfirmation = By.cssSelector("#button[aria-label=Unsubscribe]");
 
     public YoutubeChannelsListPage(WebDriver driver) {
@@ -43,7 +43,7 @@ public class YoutubeChannelsListPage {
 
     public void subscribeToChannel(String channelName) {
         getSubscribeBtnElement(channelName).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionAddedToast));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionToast));
     }
 
     /**
@@ -63,7 +63,7 @@ public class YoutubeChannelsListPage {
     public void unsubscribeToChannel(String channelName) {
         getSubscribeBtnElement(channelName).click();
         page.waitAndClick(unsubscriptionConfirmation);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionRemovedToast));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(subscriptionToast));
     }
 
     public List<WebElement> listOfSubscribedChannels() {

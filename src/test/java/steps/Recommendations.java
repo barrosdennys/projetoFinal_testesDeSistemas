@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import pages.YoutubeMainPage;
 import util.DriverFactory;
 
-
 public class Recommendations {
     private final WebDriver driver = DriverFactory.getDriver();
     private final YoutubeMainPage youtubeMainPage = new YoutubeMainPage(driver);
@@ -26,6 +25,5 @@ public class Recommendations {
     public void verifyMessage(String wontMessage) {
         String actualResult = youtubeMainPage.getWontRecommendMsg();
         Assert.assertEquals(wontMessage, actualResult);
-
     }
 }

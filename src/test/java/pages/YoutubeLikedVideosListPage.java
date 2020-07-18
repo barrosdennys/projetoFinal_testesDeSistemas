@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.BasePage;
 import util.DriverFactory;
-
 import java.util.List;
 
 public class YoutubeLikedVideosListPage {
@@ -42,12 +42,10 @@ public class YoutubeLikedVideosListPage {
 
         page.waitAndClick(videoMenu);
         page.waitAndClick(menuOption);
-
     }
 
     public void dislikeAllVideos() {
         youtubeMainPage.clickLateralMenu("Liked videos");
-
         List<WebElement> listOfLikedVideos = getListOfLikedVideos();
 
         if (listOfLikedVideos != null) {

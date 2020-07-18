@@ -9,10 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.*;
 import util.DriverFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class VideoInteractions {
     private final WebDriver driver = DriverFactory.getDriver();
@@ -60,7 +58,6 @@ public class VideoInteractions {
     @When("I select {string} menu option from the video {string}")
     public void selectMenuOptionFromVideoInList(String option, String videoTitle) {
         youtubeVideoSearchPage.selectVideoMenuOption(videoTitle, option);
-
     }
 
     @Then("I should see the video title {string} in the miniplayer")
@@ -82,7 +79,6 @@ public class VideoInteractions {
         for (WebElement listItem : watchLaterList) {
             listItems.add(listItem.getText());
         }
-
         Assert.assertTrue(listItems.contains(videoTitle));
     }
 
@@ -94,7 +90,6 @@ public class VideoInteractions {
         for (WebElement listItem : historyList) {
             listItems.add(listItem.getText());
         }
-
         Assert.assertTrue(listItems.contains(videoTitle));
     }
 
@@ -113,19 +108,16 @@ public class VideoInteractions {
         }
 
         Assert.assertTrue(listItems.contains(videoTitle));
-
     }
 
     @When("I make a comment {string} in the video")
     public void makeCommentVideo(String comment) {
         youtubeVideoPage.makeComments(comment);
-
     }
 
     @When("I change the History type to Comments")
     public void selectCommentHistoryType() {
         youtubeHistoryListPage.checkCommentHistory();
-
     }
 
     @Then("I should see the comment {string} in the Comments  list")
@@ -147,15 +139,18 @@ public class VideoInteractions {
 
     @Then("I should see {string}")
     public void verifyEmptyHistory(String emptyMessage) {
-
         String actualResult = youtubeHistoryListPage.getEmptyListMessage();
         Assert.assertEquals(emptyMessage, actualResult);
     }
 
     @And("I should see {string} is displayed")
     public void verifyTurnOnMsg(String turnOnMsg) {
-
         String actualResult = youtubeHistoryListPage.getTurnOnText();
         Assert.assertEquals(turnOnMsg, actualResult);
+    }
+
+    @And("I clear All Watched history videos")
+    public void clearAllWatchedHistory() {
+        youtubeHistoryListPage.clearAllWatchHistory();
     }
 }

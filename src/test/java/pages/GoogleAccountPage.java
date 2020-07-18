@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import util.BasePage;
 
 public class GoogleAccountPage {
     private final BasePage base;
@@ -19,6 +20,5 @@ public class GoogleAccountPage {
         base.waitAndClick(nextButtonEmail);
         base.waitAndSendKeys(emailPassword, password);
         base.waitAndClick(nextButtonPassword);
-
     }
 }

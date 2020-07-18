@@ -5,6 +5,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.BasePage;
 import util.DriverFactory;
 
 public class YoutubeVideoSearchPage {
@@ -15,6 +16,7 @@ public class YoutubeVideoSearchPage {
     private final By noResultsBody = By.cssSelector(".promo-message .promo-title ~ .promo-body-text");
     private final By miniplayerVideoTitle = By.cssSelector("div.ytd-miniplayer[role=dialog]" +
             " div#info-bar yt-formatted-string[title]");
+    private final By skipButton = By.xpath("//button[contains(@class,'skip-button')]");
 
     public YoutubeVideoSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -34,12 +36,13 @@ public class YoutubeVideoSearchPage {
 
     public void clickOnVideoTitle(String videoName) {
         By videoTitle = By.cssSelector("a#video-title[title='" + videoName + "']");
-        By skipButton = By.xpath("//button[contains(@class,'skip-button')]");
-
         page.waitAndClick(videoTitle);
+        waitForSkipButtonToAppear(1);
+    }
 
+    public void waitForSkipButtonToAppear(int retryTimes) {
         int retry = 0;
-        while (retry < 1) {
+        while (retry < retryTimes) {
             try {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(skipButton));
                 if (page.isElementPresent(skipButton)) {
@@ -56,14 +59,12 @@ public class YoutubeVideoSearchPage {
     public void selectVideoMenuOption(String videoName, String option) {
         By videoSettings = By.xpath("//ytd-video-renderer//a[@id='video-title']" +
                 "[contains(@title,'" + videoName + "')]//ancestor::h3//following-sibling::div");
-
         By videoSettingsOption = By.xpath("//ytd-menu-popup-renderer//yt-formatted-string[contains" +
                 "(text(),'" + option + "')]");
 
         page.mouseOverElement(videoSettings);
         page.waitAndClick(videoSettings);
         page.waitAndClick(videoSettingsOption);
-
     }
 
     public String getMiniplayerVideoTitle() {
