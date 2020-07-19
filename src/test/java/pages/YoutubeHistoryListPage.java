@@ -111,6 +111,7 @@ public class YoutubeHistoryListPage {
     }
 
     public String getEmptyListMessage(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emptyMessage));
         return driver.findElement(emptyMessage).getText();
     }
 
