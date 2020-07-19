@@ -1,10 +1,15 @@
 @test
 Feature: Video search
 
-  Scenario: Search for a video that will not return any result
+  Scenario Outline: Search for a video that will not return any result
     Given I open the youtube main page
-    When I search for a video called "ççççççéééééé"
+    When I search for a video called <videoName>
     Then I should see the No results found messages
+
+    Examples:
+      |          videoName               |
+      |    "çççççççççççéééééééééé"       |
+      |    "éééééééééçççççççççççç"       |
 
   @like
   Scenario: Like a video and check the Liked Videos list

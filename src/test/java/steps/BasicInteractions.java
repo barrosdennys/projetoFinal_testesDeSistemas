@@ -22,7 +22,7 @@ public class BasicInteractions {
         youtubeMainPage.login(email, password);
     }
 
-    @When("I search for a video called {string}")
+    @When("^I search for a video called \"([^\"]*)\"$")
     public void videoSearch(String videoName) {
         youtubeMainPage.searchVideo(videoName);
     }
